@@ -534,14 +534,12 @@ const App = () => {
 
                 <div className="cmd__view__history" ref={codeViewHistory}>
                     {firstMessage({ runCMD })}
-                    {cmdHistory.map((h, i) => {
-                        return (
-                            <div className="cmd__usr__row" key={i}>
-                                <span className="cmd__usr slow">~/fyodorovandrei.com</span> {h}
-                                {parseCMD({ string: h, runCMD, clear })}
-                            </div>
-                        );
-                    })}
+                    {cmdHistory.map((h, i) => (
+                        <div className="cmd__usr__row" key={i}>
+                            <span className="cmd__usr slow">~/fyodorovandrei.com</span> {h}
+                            {parseCMD({ string: h, runCMD, clear })}
+                        </div>
+                    ))}
                 </div>
 
                 <div className="cmd__visible__input">
