@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 
 import './App.scss';
 
@@ -492,6 +492,31 @@ const App = () => {
             codeViewHistory.current.scrollTo(0, codeViewHistory.current.scrollHeight);
         }, 1);
     };
+
+    const eventListener = (event) => {
+        if (document.activeElement === input.current) {
+            // If the focus in the input, do nothing
+            return;
+        }
+
+        const pressedKey = event.key;
+
+        // Check if the key is a letter (a-z or A-Z) or is a number
+        if (/^[a-zA-Z0-9]$/.test(pressedKey)) {
+            setCurrentCmd(pressedKey);
+            input.current.focus();
+        }
+    };
+
+    useLayoutEffect(() => {
+        // Listen for keydown event
+        document.addEventListener('keydown', eventListener);
+
+        return () => {
+            // Remove the listener
+            document.removeEventListener('keydown', eventListener);
+        };
+    }, []);
 
     return (
         <div className="cmd">
